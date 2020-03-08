@@ -1,13 +1,11 @@
 package com.example.bonchapp.ui.storage
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.SearchView
-import android.widget.Spinner
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -52,12 +50,11 @@ class StorageFragment : Fragment() {
     }
 
     fun initSpinner() {
-        //var spinnerAdapter = ArrayAdapter(this.context!!, R.layout.spinner_dropdown_item, R.id.spinner_button, string)
+        var array = resources.getStringArray(R.array.switch_files)
+        val spinnerAdapter = ArrayAdapter(this.context!!, R.layout.spinner_dropdown_item, R.id.button, array)
 
-        val spinnerAdapter = ArrayAdapter.createFromResource(this.context!!, R.array.switch_files, R.layout.spinner_item)
-        spinnerAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
-        filesSpinner.adapter = spinnerAdapter
-
+        //val spinnerAdapter = ArrayAdapter.createFromResource(this.context!!, R.array.switch_files, R.layout.support_simple_spinner_dropdown_item)
+        //spinnerAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
         filesSpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
 
@@ -69,12 +66,13 @@ class StorageFragment : Fragment() {
             ) {
                 presenter.onSpinnerSelectedItemUpdated(position)
             }
-
         }
+
+        filesSpinner.adapter = spinnerAdapter
     }
 
     fun initRecycler() {
-        recyclerAdapter = FilesAdapter(this.context!!, presenter.data)
+        recyclerAdapter = FilesAdapter(this, presenter.data)
         val callback = FilesRecyclerItemTouchHelper(recyclerAdapter)
         val touchHelper = ItemTouchHelper(callback)
         touchHelper.attachToRecyclerView(filesRecycler)

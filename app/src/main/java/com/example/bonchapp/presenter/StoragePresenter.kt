@@ -19,4 +19,12 @@ class StoragePresenter(val context: StorageFragment) {
         }
         context.updateAdapter(data)
     }
+
+    fun addFileToMy() {
+
+    }
+
+    fun deleteFileFromMy() {
+
+    }
 }
