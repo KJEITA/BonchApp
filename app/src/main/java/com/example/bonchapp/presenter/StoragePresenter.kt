@@ -21,10 +21,14 @@ class StoragePresenter(val context: StorageFragment) {
     }
 
     fun addFileToMy() {
-
+        //TODO: add file
     }
 
     fun deleteFileFromMy() {
+        //TODO: delete file
+    }
 
+    fun downloadFile() {
+        //TODO: download file
     }
 }

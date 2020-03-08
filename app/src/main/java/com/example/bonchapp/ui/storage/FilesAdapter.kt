@@ -25,7 +25,8 @@ class FilesAdapter(val aContext: StorageFragment, var data: MutableList<String>)
 
     override fun onBindViewHolder(holder: FilesHolder, position: Int) {
         holder.itemView.run {
-            item_title.text = data[position]
+            item_file_title.text = data[position]
+            //TODO: fix presenter methods
             this.setOnLongClickListener { it ->
                 val popUp = PopupMenu(this.context!!, it)
                 popUp.inflate(R.menu.file_menu)
@@ -40,6 +41,9 @@ class FilesAdapter(val aContext: StorageFragment, var data: MutableList<String>)
                 }
                 popUp.show()
                 true
+            }
+            item_file_download.setOnClickListener {
+                aContext.presenter.downloadFile()
             }
         }
     }
